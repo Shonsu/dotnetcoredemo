@@ -1,0 +1,20 @@
+﻿@model Employee
+
+<table class="table">
+    <tbody>
+
+        <tr><th>Id</th><td>@Model.Id</td>
+        <tr><th>First Name</th><td>@Model.FirstName</td>
+        <tr><th>Last Name</th><td>@Model.LastName</td>
+        <tr><th>Date Hired</th><td>@Model.DateHired</td>
+        <tr><th>Supervisor Id</th><td>
+            @if (Model.Supervisor != null)
+            {
+                @Model.Supervisor.FirstName
+            }
+        </td>
+        </tbody>
+
+
+</table>
+

@@ -1,0 +1,67 @@
+﻿@inject Microsoft.AspNetCore.Authorization.IAuthorizationService authorizationService
+
+@model IEnumerable<Employee>
+@*@foreach (var v in ViewData)
+{
+<span>@v.Key</span>
+@foreach (var t in (List<string>)ViewData[v.Key])
+{
+<div>@t</div>
+}
+}*@
+
+
+@*<h5>@ViewBag.Something</h5>*@
+@if ((await authorizationService.AuthorizeAsync(User, null, "IsAdmin")).Succeeded)
+{
+    @Html.ActionLink("ADD", "Add")
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+            <th>Date Hired</th>
+            using Microsoft.AspNetCore.Authorization;
+            <th>Supervisor Id</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+
+            <tr>
+                <td>@emp.Id</td>
+                <td>
+                    @if ((await authorizationService.AuthorizeAsync(User, emp.Id, "CanAccessEmployee")).Succeeded)
+                    {
+                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@emp.Id">@emp.FirstName</a>
+                    }
+                    else
+                    {
+                        @emp.FirstName
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelEmp => emp.LastName)
+                </td>
+                <td>@emp.DateHired.ToString("d")</td>
+                <td>
+                    @if (emp.Supervisor != null)
+                    {
+                        @Html.ActionLink(@emp.Supervisor.FirstName, "Details", new { id = emp.SupervisorId })
+                    }
+                </td>
+                <td>
+                    @if ((await authorizationService.AuthorizeAsync(User, emp.Id, "CanAccessEmployee")).Succeeded)
+                    {
+                        <a asp-controller="Employee" asp-action="Update" asp-route-id="@emp.Id"
+                            class="btn btn-primary">Update</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

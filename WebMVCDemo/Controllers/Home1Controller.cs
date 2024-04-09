@@ -4,11 +4,11 @@ using WebMVCDemo.Models;
 
 namespace WebMVCDemo.Controllers;
 
-public class HomeController : Controller
+public class Home1Controller : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<Home1Controller> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public Home1Controller(ILogger<Home1Controller> logger)
     {
         _logger = logger;
     }

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @{
+        var number = new Random().Next(1, 10);
+    }
+    <div>
+        Number @number is
+        @if (number % 2 == 0)
+        {
+            <b>even</b>
+        }
+        else
+        {
+            <b>odd</b>
+        }
+    </div>
+
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
